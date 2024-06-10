@@ -11,14 +11,11 @@ pipeline {
                     def wzrost = params.wzrost ?: ''
                     def waga = params.waga ?: ''
                     def BMI = waga / ((wzrost/100)*(wzrost/100))
-                    echo "Twój wskaźnik BMI to: $BMI"                                                                  
-                    } else {                         
-                        echo "Proszę podać wzrost i wagę jako argumenty."                     
+                    echo "Twój wskaźnik BMI to: $BMI"                                                                                    
                     }                 
                 }             
             }         
         }     
-    }
     post {
         failure {
             emailext body: "Wystąpił błąd podczas wykonywania pipelinu",                                  
