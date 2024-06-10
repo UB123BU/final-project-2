@@ -8,11 +8,13 @@ pipeline {
         stage('Calculate BMI') {             
             steps {                 
                 script {                     
-                    def BMI                    
-                    if (params.wzrost != '' && params.waga != '') {                         
-                        double wzrost = Double.parseDouble(params.wzrost)                         
-                        double waga = Double.parseDouble(params.waga)                         
-                        BMI = waga / ((wzrost / 100) * (wzrost / 100))                         
+                    def BMI
+                    def wzrost = params.wzrost ?: ''
+                    def waga = params.waga ?: ''
+                    if (wzrost && waga) {                         
+                        double wzrostValue = Double.parseDouble(wzrost)                         
+                        double wagaValue = Double.parseDouble(waga)                         
+                        BMI = wagaValue / ((wzrostValue / 100) * (wzrostValue / 100))                         
                         echo "Twój wskaźnik BMI to: $BMI"                                                  
                         // Wysyłanie emaila z wynikiem BMI                         
                         emailext body: "Twój wskaźnik BMI to: $BMI",                                  
