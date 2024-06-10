@@ -9,7 +9,7 @@ pipeline {
             steps {                 
                 script {                     
                     def BMI                    
-                    if (params.wzrost != null && params.waga != null) {                         
+                    if (params.wzrost && params.waga) {                         
                         double wzrost = Double.parseDouble(params.wzrost)                         
                         double waga = Double.parseDouble(params.waga)                         
                         BMI = params.waga / ((params.wzrost / 100) * (params.wzrost / 100))                         
