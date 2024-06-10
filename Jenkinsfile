@@ -4,6 +4,13 @@ pipeline {
         string(name: 'wzrost', description: 'Wzrost w centymetrach', defaultValue: '')        
         string(name: 'waga', description: 'Waga w kilogramach', defaultValue: '')
     }
+        tools {
+        jdk 'Java'
+    }
+    environment {
+        JAVA_HOME = tool 'Java'
+    }
+    
     stages {         
         stage('Calculate BMI') {             
             steps {                 
