@@ -9,10 +9,10 @@ pipeline {
             steps {                 
                 script {                     
                     def BMI                    
-                    if (params.wzrost && params.waga) {                         
+                    if (params.wzrost != '' && params.waga != '') {                         
                         double wzrost = Double.parseDouble(params.wzrost)                         
                         double waga = Double.parseDouble(params.waga)                         
-                        BMI = params.waga / ((params.wzrost / 100) * (params.wzrost / 100))                         
+                        BMI = waga / ((wzrost / 100) * (wzrost / 100))                         
                         echo "Twój wskaźnik BMI to: $BMI"                                                  
                         // Wysyłanie emaila z wynikiem BMI                         
                         emailext body: "Twój wskaźnik BMI to: $BMI",                                  
