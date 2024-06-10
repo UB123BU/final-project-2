@@ -18,7 +18,7 @@ pipeline {
         failure {
             emailext body: "Wystąpił błąd podczas wykonywania pipelinu",                                  
                     subject: "BŁĄD",                                  
-                    to: "k.kapitula.063@studms.ug.edu.pl"
+                    to: "kapidospamu@gmail.com"
         }
     }
 }
