@@ -10,22 +10,20 @@ pipeline {
                 script {                     
                     def wzrost = params.wzrost ?: ''
                     def waga = params.waga ?: ''
-                    def BMI = wzrost && waga ? 
-                              (Double.parseDouble(waga) / 
-                               ((Double.parseDouble(wzrost) / 100) * (Double.parseDouble(wzrost) / 100))) : 
-                              null
- 
-                    if (BMI != null) {                         
-                        echo "Twój wskaźnik BMI to: $BMI"                                                  
-                        // Wysyłanie emaila z wynikiem BMI                         
-                        emailext body: "Twój wskaźnik BMI to: $BMI",                                  
-                                  subject: "Wynik BMI",                                  
-                                  to: "k.kapitula.063@studms.ug.edu.pl"                     
+                    def BMI = waga / ((wzrost/100)*(wzrost/100))
+                    echo "Twój wskaźnik BMI to: $BMI"                                                                  
                     } else {                         
                         echo "Proszę podać wzrost i wagę jako argumenty."                     
                     }                 
                 }             
             }         
         }     
-    }     
+    }
+    post {
+        failure {
+            emailext body: "Wystąpił błąd podczas wykonywania pipelinu",                                  
+                    subject: "BŁĄD",                                  
+                    to: "k.kapitula.063@studms.ug.edu.pl"
+        }
+    }
 }
