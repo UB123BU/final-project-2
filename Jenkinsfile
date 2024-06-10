@@ -4,13 +4,6 @@ pipeline {
         string(name: 'wzrost', description: 'Wzrost w centymetrach', defaultValue: '')        
         string(name: 'waga', description: 'Waga w kilogramach', defaultValue: '')
     }
-        tools {
-        jdk 'Java'
-    }
-    environment {
-        JAVA_HOME = tool 'Java'
-    }
-    
     stages {         
         stage('Calculate BMI') {             
             steps {                 
@@ -22,16 +15,19 @@ pipeline {
                         double wzrostValue = Double.parseDouble(wzrost)                         
                         double wagaValue = Double.parseDouble(waga)                         
                         BMI = wagaValue / ((wzrostValue / 100) * (wzrostValue / 100))                         
-                        echo "Twój wskaźnik BMI to: $BMI"                                                  
-                        // Wysyłanie emaila z wynikiem BMI                         
-                        emailext body: "Twój wskaźnik BMI to: $BMI",                                  
-                                  subject: "Wynik BMI",                                  
-                                  to: "k.kapitula.063@studms.ug.edu.pl"                     
+                        echo "Twój wskaźnik BMI to: $BMI"                                                                  
                     } else {                         
                         echo "Proszę podać wzrost i wagę jako argumenty."                     
                     }                 
                 }             
             }         
         }     
-    }     
+    }
+    post {
+        failure {
+            emailext body: "Wystąpił błąd podczas wykonywania pipelinu",                                  
+                    subject: "BŁĄD",                                  
+                    to: "k.kapitula.063@studms.ug.edu.pl"
+        }
+    }
 }
