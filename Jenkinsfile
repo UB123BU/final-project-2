@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {         
         string(name: 'wzrost', description: 'Wzrost w centymetrach', defaultValue: '')        
-        string(name: 'waga', description: 'Waga (w kilogramach)', defaultValue: '')
+        string(name: 'waga', description: 'Waga w kilogramach', defaultValue: '')
     }
     stages {         
         stage('Calculate BMI') {             
